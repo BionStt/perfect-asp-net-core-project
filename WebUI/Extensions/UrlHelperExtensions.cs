@@ -1,14 +1,15 @@
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebUI.Controllers;
 
-namespace Microsoft.AspNetCore.Mvc
+namespace WebUI.Services
 {
     public static class UrlHelperExtensions
     {
-        public static string EmailConfirmationLink(this IUrlHelper urlHelper, string userId, string code, string scheme)
+        public static string EmailConfirmationLink(this IUrlHelper urlHelper, int userId, string code, string scheme)
         {
             return urlHelper.Action(
                 action: nameof(AccountController.ConfirmEmail),
@@ -17,7 +18,7 @@ namespace Microsoft.AspNetCore.Mvc
                 protocol: scheme);
         }
 
-        public static string ResetPasswordCallbackLink(this IUrlHelper urlHelper, string userId, string code, string scheme)
+        public static string ResetPasswordCallbackLink(this IUrlHelper urlHelper, int userId, string code, string scheme)
         {
             return urlHelper.Action(
                 action: nameof(AccountController.ResetPassword),
