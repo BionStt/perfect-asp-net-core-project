@@ -16,7 +16,7 @@ namespace DAL.Data.Factories
         {
             var builder = new ConfigurationBuilder()
                   .SetBasePath(Directory.GetCurrentDirectory())
-              .AddJsonFile("../WebUI/appsettings.json");
+              .AddJsonFile("appsettings.json");
 
             var config = builder.Build();
             var connectionString = config.GetConnectionString("DefaultConnection");
