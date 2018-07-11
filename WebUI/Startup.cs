@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using DAL.Data.Context;
 using DAL.Entities.Identity;
+using WebUI.Helpers;
 
 namespace WebUI
 {
@@ -43,6 +44,8 @@ namespace WebUI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            DatabaseMigrationHelper.MigrateToLatestVersion(app);
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
