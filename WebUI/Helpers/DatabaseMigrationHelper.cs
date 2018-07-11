@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WebUI.Helpers
 {
     public static class DatabaseMigrationHelper
     {
 
-        public static void MigrateToLatestVersion(IApplicationBuilder app)
+        public static async Task MigrateToLatestVersion(IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -44,12 +45,12 @@ namespace WebUI.Helpers
                         Email = "admin@admin.com",
                         UserName = "admin@admin.com"
                     };
-                    admin.PasswordHash = new PasswordHasher<User>().HashPassword(admin, "admin");
-                    context.Users.Add(admin);
+                    admin.PasswordHash = userManager.PasswordHasher.HashPassword(admin, "admin");
+                    await userManager.CreateAsync(admin, "admin");
                     context.UserRoles.Add(new UserRole
                     {
-                            RoleId = adminRole.Id,
-                            UserId = admin.Id
+                        RoleId = adminRole.Id,
+                        UserId = admin.Id
                     });
                     context.SaveChanges();
                 }
