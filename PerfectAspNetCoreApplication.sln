@@ -7,21 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "WebUI\WebUI.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{3EC2642D-E331-4DDF-8B5F-9C6F98D007B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.Entities", "DAL.Entities\DAL.Entities.csproj", "{91BB94E1-0B5C-4EEF-8FFF-11781995DA85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Entities", "DAL.Entities\DAL.Entities.csproj", "{91BB94E1-0B5C-4EEF-8FFF-11781995DA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.Data", "DAL.Data\DAL.Data.csproj", "{F6CB1D9E-AE00-4868-81B0-884E22196457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Data", "DAL.Data\DAL.Data.csproj", "{F6CB1D9E-AE00-4868-81B0-884E22196457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.Abstractions", "DAL.Abstractions\DAL.Abstractions.csproj", "{82822E52-F44B-4DB2-9CB8-932C4923EF6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Abstractions", "DAL.Abstractions\DAL.Abstractions.csproj", "{82822E52-F44B-4DB2-9CB8-932C4923EF6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.Implementations", "DAL.Implementations\DAL.Implementations.csproj", "{C8A12737-763C-4B20-96DA-5747842D76DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Implementations", "DAL.Implementations\DAL.Implementations.csproj", "{C8A12737-763C-4B20-96DA-5747842D76DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{6BA1C3D9-A57E-4C61-8756-D07D8943ABA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL.DTO", "BLL.DTO\BLL.DTO.csproj", "{32E94ED9-C599-45DD-A2CC-1AFD7543F95B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL.DTO", "BLL.DTO\BLL.DTO.csproj", "{32E94ED9-C599-45DD-A2CC-1AFD7543F95B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL.Abstractions", "BLL.Abstractions\BLL.Abstractions.csproj", "{8CB961D5-0EDF-446F-ACF8-9DA84F64E3C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL.Abstractions", "BLL.Abstractions\BLL.Abstractions.csproj", "{8CB961D5-0EDF-446F-ACF8-9DA84F64E3C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL.Implementations", "BLL.Implementations\BLL.Implementations.csproj", "{BF896827-BB00-4FD1-A4AD-1A3836D0CEAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL.Implementations", "BLL.Implementations\BLL.Implementations.csproj", "{BF896827-BB00-4FD1-A4AD-1A3836D0CEAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{8047937D-AECF-4233-816D-C3BE045FC929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{BF896827-BB00-4FD1-A4AD-1A3836D0CEAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF896827-BB00-4FD1-A4AD-1A3836D0CEAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF896827-BB00-4FD1-A4AD-1A3836D0CEAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8047937D-AECF-4233-816D-C3BE045FC929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8047937D-AECF-4233-816D-C3BE045FC929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8047937D-AECF-4233-816D-C3BE045FC929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8047937D-AECF-4233-816D-C3BE045FC929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

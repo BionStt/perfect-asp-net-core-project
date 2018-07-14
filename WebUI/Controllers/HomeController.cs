@@ -9,20 +9,8 @@ using WebUI.Models;
 
 namespace WebUI.Controllers
 {
-    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
-        [Authorize]
-        [HttpGet("/tokenTest")]
-        public IActionResult TokenTest()
-        {
-            return Ok("Authorized");
-        }
 
-        [HttpGet("/tokenTest2")]
-        public IActionResult TokenTest2()
-        {
-            return Ok("Authorized");
-        }
     }
 }
