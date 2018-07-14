@@ -13,6 +13,10 @@ using Microsoft.AspNetCore.Hosting;
 using DAL.Data.Context;
 using DAL.Entities.Identity;
 using WebUI.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebUI.Middlewares;
 
 namespace WebUI
 {
@@ -43,6 +47,33 @@ namespace WebUI
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    // укзывает, будет ли валидироваться издатель при валидации токена
+                    ValidateIssuer = true,
+                    // строка, представляющая издателя
+                    ValidIssuer = AuthorizationHelper.JWT_ISSUER,
+                    // будет ли валидироваться время существования
+                    ValidateLifetime = true,
+                    // будет ли валидироваться потребитель токена
+                    ValidateAudience = false,
+                    // установка потребителя токена
+                    ValidAudience = AuthorizationHelper.JWT_AUDIENCE,
+                    // установка ключа безопасности
+                    IssuerSigningKey = AuthorizationHelper.GetSymmetricJWTSecurityKey(),
+                    // валидация ключа безопасности
+                    ValidateIssuerSigningKey = true,
+                };
+            });
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -50,26 +81,23 @@ namespace WebUI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+            //app.UseMiddleware<ErrorHandlerMiddleware>();
             //TODO: Check Again This Migrator and async actions for Startup Pipeline
-            await DatabaseMigrationHelper.MigrateToLatestVersion(app);
+            app.UseMiddleware<DatabaseMigratorMiddleware>();
 
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseDeveloperExceptionPage();
+                //app.UseDatabaseErrorPage();
             }
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

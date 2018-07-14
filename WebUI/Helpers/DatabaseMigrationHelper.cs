@@ -17,6 +17,7 @@ namespace WebUI.Helpers
 
         public static async Task MigrateToLatestVersion(IApplicationBuilder app)
         {
+            throw new Exception("Поооошеееел наахуууй");
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
