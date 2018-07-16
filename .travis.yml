@@ -14,8 +14,8 @@ install:
 script:  
   - dotnet test ./UnitTests
   - dotnet build ./WebUI
-  - dotnet publish ./WebUI -c Release -o ../release
 before_deploy: 
+  - dotnet publish ./WebUI -c Release -o ../release
   - zip -r publish.zip release 
 deploy:
   # deploy to staging
