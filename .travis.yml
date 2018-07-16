@@ -16,23 +16,23 @@ script:
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
-    access_key_id: "Encrypted <staging-access-key-id>="
+    access_key_id: "AKIAJGGEIZRGEPTYKICQ"
     secret_access_key:
-     secure: "Encypted <staging-secret-access-key>="
-    region: "us-east-1"  
-    app: "staging-example-app-name"
-    env: "staging-example-app-environment"
-    bucket_name: "staging-the-target-S3-bucket"
+     secure: "xfMcGw6PF7jj5ZmV7rIl2BlUAGXq6H/CmpiJx4BP"
+    region: "us-east-2"  
+    app: "perfect-asp-net-core-project"
+    env: "PerfectAspNetCoreProjectStaging"
+    bucket_name: "elasticbeanstalk-us-east-2-337708005292"
     on:
       branch: staging
   # deploy to production
   - provider: elasticbeanstalk
-    access_key_id: "Encrypted <access-production-key-id>="
+    access_key_id: "AKIAJGGEIZRGEPTYKICQ"
     secret_access_key:
-     secure: "Encypted <secret-production-access-key>="
-    region: "us-east-1"  
-    app: "production"
-    env: "production"
-    bucket_name: "the-target-production-S3-bucket"
+     secure: "xfMcGw6PF7jj5ZmV7rIl2BlUAGXq6H/CmpiJx4BP"
+    region: "us-east-2"  
+    app: "perfect-asp-net-core-project"
+    env: "PerfectAspNetCoreProjectProduction"
+    bucket_name: "elasticbeanstalk-us-east-2-337708005292"
     on:
       branch: production
