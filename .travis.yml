@@ -1,0 +1,38 @@
+language: csharp  
+sudo: required  
+dist: trusty  
+mono: none
+dotnet: 2.0.0
+# whitelist
+branches:
+  only:
+    - master
+    - staging
+    - production
+install:
+  - dotnet restore
+script:  
+  - dotnet test ./UnitTests
+deploy:
+  # deploy to staging
+  - provider: elasticbeanstalk
+    access_key_id: "AKIAJGGEIZRGEPTYKICQ"
+    secret_access_key:
+     secure: "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"
+    region: "us-east-2"  
+    app: "perfect-asp-net-core-project"
+    env: "PerfectAspNetCoreProjectStaging"
+    bucket_name: "elasticbeanstalk-us-east-2-337708005292"
+    on:
+      branch: staging
+  # deploy to production
+  - provider: elasticbeanstalk
+    access_key_id: "AKIAJGGEIZRGEPTYKICQ"
+    secret_access_key:
+     secure: "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"
+    region: "us-east-2"  
+    app: "perfect-asp-net-core-project"
+    env: "PerfectAspNetCoreProjectProduction"
+    bucket_name: "elasticbeanstalk-us-east-2-337708005292"
+    on:
+      branch: production
