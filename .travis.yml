@@ -13,6 +13,10 @@ install:
   - dotnet restore
 script:  
   - dotnet test ./UnitTests
+  - dotnet build ./WebUI
+  - dotnet publish ./WebUI -c Release -o ../release
+before_deploy: 
+  - zip -r publish.zip release 
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
@@ -23,6 +27,7 @@ deploy:
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectStaging"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
+    zip_file: publish.zip
     on:
       branch: staging
   # deploy to production
@@ -34,5 +39,6 @@ deploy:
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectProduction"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
+    zip_file: publish.zip
     on:
       branch: production
