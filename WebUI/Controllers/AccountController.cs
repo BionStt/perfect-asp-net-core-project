@@ -49,7 +49,7 @@ namespace WebUI.Controllers
             var response = await GetAuthorizationResponse(username, password);
             if (response == null)
             {
-                return BadRequest("Error during login! Check form data!");
+                return BadRequest("Error during login! Check form data, please!");
             }
             return Ok(response);
         }
