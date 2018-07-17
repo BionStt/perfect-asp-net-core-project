@@ -13,10 +13,9 @@ install:
   - dotnet restore
 script:  
   - dotnet test ./UnitTests
-  - dotnet build ./WebUI
 before_deploy: 
   - dotnet publish ./WebUI -c Release -o ../release
-  - zip -r publish.zip release/*
+  - zip -r publish.zip ./release/*
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
