@@ -28,6 +28,7 @@ deploy:
     env: "PerfectAspNetCoreProjectStaging"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
     zip_file: ./publish.zip
+    skip_cleanup: true
     on:
       branch: staging
   # deploy to production
@@ -40,5 +41,6 @@ deploy:
     env: "PerfectAspNetCoreProjectProduction"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
     zip_file: ./publish.zip
+    skip_cleanup: true
     on:
       branch: production
