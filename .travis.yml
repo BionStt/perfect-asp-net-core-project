@@ -27,7 +27,7 @@ deploy:
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectStaging"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
-    zip_file: publish.zip
+    zip_file: ./publish.zip
     on:
       branch: staging
   # deploy to production
@@ -39,6 +39,6 @@ deploy:
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectProduction"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
-    zip_file: publish.zip
+    zip_file: ./publish.zip
     on:
       branch: production
