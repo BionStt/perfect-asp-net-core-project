@@ -17,15 +17,16 @@ before_deploy:
   - if [[ $TRAVIS_BRANCH == 'staging' ]]; then
     echo "Building for Staging...";
     export ASPNETCORE_ENVIRONMENT="Staging"; 
-    dotnet publish ./WebUI -c Release -o ../release;
-    zip -r publish.zip ./release/*;
     fi
   - if [[ $TRAVIS_BRANCH == 'production' ]]; then
     echo "Building for Production...";
     export ASPNETCORE_ENVIRONMENT="Production";
-    dotnet publish ./WebUI -c Release -o ../release;
-    zip -r publish.zip ./release/*;
     fi
+    dotnet publish -c Release -o ../release;
+    cd release;
+    zip -r ../app.zip *;
+    cd ../;
+    zip -r bundle.zip app.zip aws-windows-deployment-manifest.json;
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
@@ -36,7 +37,7 @@ deploy:
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectStaging"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
-    zip_file: ./publish.zip
+    zip_file: ./bundle.zip
     skip_cleanup: true
     on:
       branch: staging
@@ -49,7 +50,7 @@ deploy:
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectProduction"
     bucket_name: "elasticbeanstalk-us-east-2-337708005292"
-    zip_file: ./publish.zip
+    zip_file: ./bundle.zip
     skip_cleanup: true
     on:
       branch: production
