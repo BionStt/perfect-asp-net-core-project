@@ -29,9 +29,9 @@ before_deploy:
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
-    access_key_id: "AKIAIXNRTSTH7RJEYEIA"
+    access_key_id: "AKIAIB66OF6PQNIUIPWQ"
     secret_access_key:
-     secure: "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"
+     secure: "9LjJwLcMtmyYn8dMWJTHTnd7u/E9uegnpcBOqq5x"
     region: "us-east-2"  
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectStaging"
@@ -42,9 +42,9 @@ deploy:
       branch: staging
   # deploy to production
   - provider: elasticbeanstalk
-    access_key_id: "AKIAIXNRTSTH7RJEYEIA"
+    access_key_id: "AKIAIB66OF6PQNIUIPWQ"
     secret_access_key:
-     secure: "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"
+     secure: "9LjJwLcMtmyYn8dMWJTHTnd7u/E9uegnpcBOqq5x"
     region: "us-east-2"  
     app: "perfect-asp-net-core-project"
     env: "PerfectAspNetCoreProjectProduction"
