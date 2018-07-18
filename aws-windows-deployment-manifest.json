@@ -1,0 +1,16 @@
+{
+  "manifestVersion": 1,
+  "deployments": 
+  {
+    "aspNetCoreWeb":
+    [{
+      "name": "PerfectASPNETCoreApp",
+      "parameters": 
+      {
+        "appBundle": "app.zip",
+        "iisPath": "/",
+        "iisWebSite": "Default Web Site"
+      }
+    }]
+  }
+}
