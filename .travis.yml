@@ -22,11 +22,11 @@ before_deploy:
     echo "Building for Production...";
     export ASPNETCORE_ENVIRONMENT="Production";
     fi
-    dotnet publish -c Release -o ../release;
-    cd release;
-    zip -r ../app.zip *;
-    cd ../;
-    zip -r bundle.zip app.zip aws-windows-deployment-manifest.json;
+  - dotnet publish -c Release -o ../release
+  - cd release
+  - zip -r ../app.zip *
+  - cd ../
+  - zip -r bundle.zip app.zip aws-windows-deployment-manifest.json
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
