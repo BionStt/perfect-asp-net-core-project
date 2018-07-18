@@ -29,7 +29,7 @@ before_deploy:
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
-    access_key_id: "AKIAJGGEIZRGEPTYKICQ"
+    access_key_id: "AKIAIXNRTSTH7RJEYEIA"
     secret_access_key:
      secure: "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"
     region: "us-east-2"  
@@ -42,7 +42,7 @@ deploy:
       branch: staging
   # deploy to production
   - provider: elasticbeanstalk
-    access_key_id: "AKIAJGGEIZRGEPTYKICQ"
+    access_key_id: "AKIAIXNRTSTH7RJEYEIA"
     secret_access_key:
      secure: "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"
     region: "us-east-2"  
