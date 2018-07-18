@@ -30,26 +30,26 @@ before_deploy:
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
-    access_key_id: "AKIAIB66OF6PQNIUIPWQ"
+    access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key:
-     secure: "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"
+     secure: $AWS_SECRET_ACCESS_KEY
     region: "us-east-2"  
-    app: "perfect-asp-net-core-project"
-    env: "PerfectAspNetCoreProjectStaging"
-    bucket_name: "elasticbeanstalk-us-east-2-337708005292"
+    app: $AWS_EB_APP
+    env: $AWS_EB_ENV_STAGING
+    bucket_name: $AWS_S3_BUCKET
     zip_file: ./bundle.zip
     skip_cleanup: true
     on:
       branch: staging
   # deploy to production
   - provider: elasticbeanstalk
-    access_key_id: "AKIAIB66OF6PQNIUIPWQ"
+    access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key:
-     secure: "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"
+     secure: $AWS_SECRET_ACCESS_KEY
     region: "us-east-2"  
-    app: "perfect-asp-net-core-project"
-    env: "PerfectAspNetCoreProjectProduction"
-    bucket_name: "elasticbeanstalk-us-east-2-337708005292"
+    app: $AWS_EB_APP
+    env: $AWS_EB_ENV_PRODUCTION
+    bucket_name: $AWS_S3_BUCKET
     zip_file: ./bundle.zip
     skip_cleanup: true
     on:
