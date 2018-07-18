@@ -16,15 +16,15 @@ script:
 before_deploy: 
   - if [[ $TRAVIS_BRANCH == 'staging' ]]; then
     echo "Building for Staging...";
-    ASPNETCORE_ENVIRONMENT = Staging; 
+    export ASPNETCORE_ENVIRONMENT="Staging"; 
     dotnet publish ./WebUI -c Release -o ../release;
-    zip -r -j publish.zip ./release/*;
+    zip -r publish.zip ./release/*;
     fi
   - if [[ $TRAVIS_BRANCH == 'production' ]]; then
     echo "Building for Production...";
-    ASPNETCORE_ENVIRONMENT = Production;
+    export ASPNETCORE_ENVIRONMENT="Production";
     dotnet publish ./WebUI -c Release -o ../release;
-    zip -r -j publish.zip ./release/*;
+    zip -r publish.zip ./release/*;
     fi
 deploy:
   # deploy to staging
