@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "IIS Express": {
+    "IIS Dev": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "https://localhost:44332/",
@@ -16,13 +16,19 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebUI": {
+    "IIS Staging": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:62653/"
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      }
+    },
+    "IIS Production": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
     }
   }
 }

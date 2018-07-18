@@ -14,8 +14,15 @@ install:
 script:  
   - dotnet test ./UnitTests
 before_deploy: 
-  - dotnet publish ./WebUI -c Release -o ../release
-  - zip -r publish.zip ./release/*
+  - if [ $TRAVIS_BRANCH == 'staging' ]; then
+    echo "Building for Staging..."
+    ASPNETCORE_ENVIRONMENT = Staging dotnet publish ./WebUI -c Release -o ../release
+    fi
+  - if [ $TRAVIS_BRANCH == 'production' ]; then
+    echo "Building for Production..."
+    ASPNETCORE_ENVIRONMENT = Production dotnet publish ./WebUI -c Release -o ../release
+    fi
+  - zip -r -j publish.zip release/*
 deploy:
   # deploy to staging
   - provider: elasticbeanstalk
