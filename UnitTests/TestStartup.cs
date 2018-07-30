@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DAL.Data.Context;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebUI;
@@ -10,7 +11,7 @@ namespace UnitTests
 {
     public class TestStartup : Startup
     {
-        public TestStartup(Microsoft.Extensions.Configuration.IConfiguration configuration) : base(configuration)
+        public TestStartup(IHostingEnvironment env) : base(env)
         {
         }
 
