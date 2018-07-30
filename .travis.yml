@@ -31,8 +31,7 @@ deploy:
   # deploy to staging
   - provider: elasticbeanstalk
     access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key:
-     secure: $AWS_SECRET_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
     region: "us-east-2"  
     app: $AWS_EB_APP
     env: $AWS_EB_ENV_STAGING
@@ -44,8 +43,7 @@ deploy:
   # deploy to production
   - provider: elasticbeanstalk
     access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key:
-     secure: $AWS_SECRET_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
     region: "us-east-2"  
     app: $AWS_EB_APP
     env: $AWS_EB_ENV_PRODUCTION

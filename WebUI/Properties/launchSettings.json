@@ -9,7 +9,7 @@
   },
   "profiles": {
     "IIS Dev": {
-      "commandName": "IISExpress",
+      "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "https://localhost:44332/",
       "environmentVariables": {
