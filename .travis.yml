@@ -8,7 +8,9 @@ branches:
   only:
     - master
     - staging
+      if: $TRAVIS_PULL_REQUEST = false
     - production
+      if: $TRAVIS_PULL_REQUEST = false
 install:
   - dotnet restore
 script:  
