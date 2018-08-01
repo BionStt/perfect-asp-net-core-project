@@ -15,7 +15,6 @@ namespace WebUI
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Test change for check does Travis CI work");
             BuildWebHost(args).Run();
         }
 
