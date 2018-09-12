@@ -27,10 +27,12 @@ deploy:
   # deploy to staging
   - provider: script
     script: dotnet ./deploy/FtpDeployer.dll staging ./release
+    skip_cleanup: true
     on:
       branch: staging
   # deploy to production
   - provider: script
     script: dotnet ./deploy/FtpDeployer.dll production ./release
+    skip_cleanup: true
     on:
       branch: production
