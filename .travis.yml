@@ -1,6 +1,6 @@
-language: csharp  
-sudo: required  
-dist: trusty  
+language: csharp
+sudo: required
+dist: trusty
 mono: none
 dotnet: 2.0.0
 # whitelist
@@ -11,44 +11,25 @@ branches:
     - production
 install:
   - dotnet restore
-script:  
+script:
   - dotnet test ./UnitTests
-before_deploy: 
+before_deploy:
   - if [[ $TRAVIS_BRANCH == 'staging' ]]; then
     echo "Building for Staging...";
-    export ASPNETCORE_ENVIRONMENT="Staging"; 
+    export ASPNETCORE_ENVIRONMENT="Staging";
     fi
   - if [[ $TRAVIS_BRANCH == 'production' ]]; then
     echo "Building for Production...";
     export ASPNETCORE_ENVIRONMENT="Production";
     fi
   - dotnet publish -c Release -o ../release
-  - cd release
-  - zip -r ../app.zip *
-  - cd ../
-  - zip -r bundle.zip app.zip aws-windows-deployment-manifest.json
-deploy:
   # deploy to staging
-  - provider: elasticbeanstalk
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    region: "us-east-2"  
-    app: $AWS_EB_APP
-    env: $AWS_EB_ENV_STAGING
-    bucket_name: $AWS_S3_BUCKET
-    zip_file: ./bundle.zip
-    skip_cleanup: true
+  - provider: script
+    script: dotnet ./deploy/FtpDeployer.dll staging ./release
     on:
       branch: staging
   # deploy to production
-  - provider: elasticbeanstalk
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    region: "us-east-2"  
-    app: $AWS_EB_APP
-    env: $AWS_EB_ENV_PRODUCTION
-    bucket_name: $AWS_S3_BUCKET
-    zip_file: ./bundle.zip
-    skip_cleanup: true
+  - provider: script
+    script: dotnet ./deploy/FtpDeployer.dll production ./release
     on:
       branch: production
