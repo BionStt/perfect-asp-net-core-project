@@ -25,11 +25,11 @@ before_deploy:
   - dotnet publish -c Release -o ../release
   # deploy to staging
   - provider: script
-    script: bash deploy.sh staging
+    script: dotnet ./deploy/FtpDeployer.dll staging ./release
     on:
       branch: staging
   # deploy to production
   - provider: script
-    script: bash deploy.sh production
+    script: dotnet ./deploy/FtpDeployer.dll production ./release
     on:
       branch: production
