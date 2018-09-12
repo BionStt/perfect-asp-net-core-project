@@ -8,6 +8,11 @@ branches:
 for:
   - branches:
       only:
+        - master
+      build_script:
+        - cmd: dotnet build
+  - branches:
+      only:
         - staging
     environment:
       ASPNETCORE_ENVIRONMENT: Staging
