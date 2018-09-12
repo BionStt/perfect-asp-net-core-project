@@ -23,6 +23,7 @@ before_deploy:
     export ASPNETCORE_ENVIRONMENT="Production";
     fi
   - dotnet publish -c Release -o ../release
+deploy:
   # deploy to staging
   - provider: script
     script: dotnet ./deploy/FtpDeployer.dll staging ./release
