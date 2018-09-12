@@ -9,8 +9,8 @@ for:
   - branches:
       only:
         - master
-      build_script:
-        - cmd: dotnet build
+    build_script:
+      - cmd: dotnet build
   - branches:
       only:
         - staging
