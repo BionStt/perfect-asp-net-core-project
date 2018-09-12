@@ -1,0 +1,49 @@
+version: "1.0.{build}"
+image: Visual Studio 2017
+branches:
+  only:
+    - master
+    - staging
+    - production
+for:
+  - branches:
+      only:
+        - staging
+    environment:
+      ASPNETCORE_ENVIRONMENT: Staging
+      WEBSITE_PATH: staging
+  - branches:
+      only:
+        - staging
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      WEBSITE_PATH: production
+  - branches:
+      only:
+        - staging
+        - production
+    build_script:
+      - cmd: dotnet publish -c Release -o ../release
+    artifacts:
+      - path: "./release"
+        name: WebSite
+        type: WebDeployPackage
+    deploy:
+      provider: WebDeploy
+      server: $WEB_HOST
+      website: $WEBSITE_PATH
+      username: $WEB_DEPLOYER_USERNAME
+      password: $WEB_DEPLOYER_PASSWORD
+      ntlm: false
+      remove_files: true
+      artifact: WebSite
+    deployment_success:
+      - cmd: rmdir /Q /S ./release
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+install:
+  - cmd: dotnet restore
+clone_depth: 1
+test_script:
+  - cmd: dotnet test ./UnitTests
