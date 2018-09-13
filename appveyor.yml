@@ -17,16 +17,27 @@ for:
     environment:
       ASPNETCORE_ENVIRONMENT: Staging
       WEBSITE_PATH: staging
+    build_script:
+      - cmd: dotnet publish -c Release -o ../release
+    artifacts:
+      - path: "./release"
+        name: WebSite
+        type: WebDeployPackage
+    deploy:
+      provider: WebDeploy
+      server: $WEB_HOST
+      website: $WEBSITE_PATH
+      username: $WEB_DEPLOYER_USERNAME
+      password: $WEB_DEPLOYER_PASSWORD
+      ntlm: false
+      remove_files: true
+      artifact: WebSite
   - branches:
       only:
-        - staging
+        - production
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       WEBSITE_PATH: production
-  - branches:
-      only:
-        - staging
-        - production
     build_script:
       - cmd: dotnet publish -c Release -o ../release
     artifacts:
