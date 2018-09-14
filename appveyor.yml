@@ -19,7 +19,7 @@ for:
       WEBSITE_PATH: staging
     build_script:
       - cmd: dotnet publish -c Release -o ../release
-    deploy-script:
+    deploy_script:
       - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
   - branches:
       only:
@@ -29,7 +29,7 @@ for:
       WEBSITE_PATH: production
     build_script:
       - cmd: dotnet publish -c Release -o ../release
-    deploy-script:
+    deploy_script:
       - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
