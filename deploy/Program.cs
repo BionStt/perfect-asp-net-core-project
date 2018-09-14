@@ -1,9 +1,11 @@
 ﻿using Limilabs.FTP.Client;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace FtpDeployer
 {
@@ -11,61 +13,29 @@ namespace FtpDeployer
     {
         static void Main(string[] args)
         {
-            var ftpHost = Environment.GetEnvironmentVariable("WEB_HOST");
-            var userName = Environment.GetEnvironmentVariable("WEB_DEPLOYER_USERNAME");
-            var password = Environment.GetEnvironmentVariable("WEB_DEPLOYER_PASSWORD");
-            var path =  Environment.GetEnvironmentVariable("WEBSITE_PATH");
-            var releasePath = args[0];
-            var deployed = false;
-            var maxAttempts = 3;
-            while (!deployed && maxAttempts > 0)
+            var host = Environment.GetEnvironmentVariable("WEB_DEPLOYER");
+            var token = Environment.GetEnvironmentVariable("AUTH_TOKEN");
+            var accountName = Environment.GetEnvironmentVariable("APPVEYOR_ACCOUNT_NAME");
+            var projectName = Environment.GetEnvironmentVariable("APPVEYOR_PROJECT_NAME");
+            var webSite = Environment.GetEnvironmentVariable("WEB_SITE");
+            var stage = Environment.GetEnvironmentVariable("RELEASE_STAGE");
+            var artifactPath = args[0];
+            using (var client = new WebClient())
             {
-                using (Ftp client = new Ftp())
-                {
-                    Console.WriteLine("Connection to FTP HOST...");
-                    client.Connect($"{ftpHost}");
-                    Console.WriteLine("Connected to FTP HOST, trying to login now...");
-                    client.Login(userName, password);
-                    Console.WriteLine("Successfuly logged in!");
-                    client.ChangeFolder(path);
-                    try
-                    {
-                        deployed = ProceedDeploy(client, releasePath);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}!");
-                    }
-                    client.Close();
-                }
-                maxAttempts--;
-            }
-            if (!deployed)
-            {
-                throw new Exception("Failed to deploy!");
-            }
-            Console.WriteLine("SUCCESS!");
-        }
+                var values = new NameValueCollection();
+                values["AccountName"] = accountName;
+                values["ProjectName"] = projectName;
+                values["WebSite"] = webSite;
+                values["Stage"] = stage;
+                values["Token"] = token;
+                values["Package"] = artifactPath;
 
+                var response = client.UploadValues(host, "POST", values);
 
-        private static bool ProceedDeploy(Ftp client, string releasePath)
-        {
-            List<FtpItem> items = client.GetList();
-            Console.WriteLine("Trying to clear remote folder");
-            foreach (FtpItem item in items)
-            {
-                if (item.IsFolder)
-                {
-                    client.DeleteFolderRecursively(item.Name);
-                }
-                if (item.IsFile)
-                {
-                    client.DeleteFile(item.Name);
-                }
+                var responseString = Encoding.Default.GetString(response);
+                Console.WriteLine(responseString);
             }
-            Console.WriteLine("Trying to deploy web site...");
-            client.UploadFiles("./", releasePath);
-            return true;
+
         }
     }
 }

@@ -16,32 +16,30 @@ for:
         - production
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      WEBSITE_PATH: production
+      RELEASE_STAGE: production
     build_script:
       - cmd: dotnet publish -c Release -o ../release
+    artifacts:
+      - path: ./release
+        name: ProductionRelease
+        type: Zip
     deploy_script:
-      - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
+      - cmd: dotnet run --project deploy/FtpDeployer.csproj ProductionRelease.zip
   - branches:
       only:
         - staging
     environment:
       ASPNETCORE_ENVIRONMENT: Staging
-      WEBSITE_PATH: staging
+      RELEASE_STAGE: staging
     build_script:
       - cmd: dotnet publish -c Release -o ../release
     artifacts:
       - path: ./release
-        name: Release
-        type: WebDeployPackage
-    deploy:
-      provider: WebDeploy
-      server: $(WEB_HOST)
-      website: $(WEBSITE_PATH)
-      username: $(WEB_DEPLOYER_USERNAME)
-      password: $(WEB_DEPLOYER_PASSWORD)
-      ntlm: false
-      remove_files: true
-      artifact: Release
+        name: StagingRelease
+        type: Zip
+    deploy_script:
+      - cmd: dotnet run --project deploy/FtpDeployer.csproj StagingRelease.zip
+
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
