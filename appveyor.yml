@@ -19,11 +19,8 @@ for:
       WEBSITE_PATH: staging
     build_script:
       - cmd: dotnet publish -c Release -o ../release
-    deploy:
-      provider: Environment
-      name: staging
-      deploy_script:
-        - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
+    deploy-script:
+      - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
   - branches:
       only:
         - production
@@ -32,11 +29,8 @@ for:
       WEBSITE_PATH: production
     build_script:
       - cmd: dotnet publish -c Release -o ../release
-    deploy:
-      provider: Environment
-      name: production
-      deploy_script:
-        - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
+    deploy-script:
+      - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
