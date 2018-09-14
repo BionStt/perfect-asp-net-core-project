@@ -19,19 +19,11 @@ for:
       WEBSITE_PATH: staging
     build_script:
       - cmd: dotnet publish -c Release -o ../release
-    artifacts:
-      - path: "./release"
-        name: WebSite
-        type: WebDeployPackage
     deploy:
-      provider: WebDeploy
-      server: $WEB_HOST
-      website: $WEBSITE_PATH
-      username: $WEB_DEPLOYER_USERNAME
-      password: $WEB_DEPLOYER_PASSWORD
-      ntlm: false
-      remove_files: true
-      artifact: WebSite
+      provider: environment
+      name: staging
+      script:
+        - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
   - branches:
       only:
         - production
@@ -40,19 +32,11 @@ for:
       WEBSITE_PATH: production
     build_script:
       - cmd: dotnet publish -c Release -o ../release
-    artifacts:
-      - path: "./release"
-        name: WebSite
-        type: WebDeployPackage
     deploy:
-      provider: WebDeploy
-      server: $WEB_HOST
-      website: $WEBSITE_PATH
-      username: $WEB_DEPLOYER_USERNAME
-      password: $WEB_DEPLOYER_PASSWORD
-      ntlm: false
-      remove_files: true
-      artifact: WebSite
+      provider: environment
+      name: production
+      script:
+        - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
