@@ -32,7 +32,7 @@ for:
     artifacts:
       - path: ./release
         name: Release
-        type: Zip
+        type: File
     deploy:
       provider: FTP
       protocol: ftp
