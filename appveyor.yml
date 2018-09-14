@@ -32,14 +32,15 @@ for:
     artifacts:
       - path: ./release
         name: Release
-        type: File
+        type: WebDeployPackage
     deploy:
-      provider: FTP
-      protocol: ftp
-      host: $(WEB_HOST)
+      provider: WebDeploy
+      server: $(WEB_HOST)
+      website: $(WEBSITE_PATH)
       username: $(WEB_DEPLOYER_USERNAME)
       password: $(WEB_DEPLOYER_PASSWORD)
-      folder: $(WEBSITE_PATH)
+      ntlm: false
+      remove_files: true
       artifact: Release
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
