@@ -22,7 +22,7 @@ for:
     deploy:
       provider: Environment
       name: staging
-      script:
+      deploy_script:
         - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
   - branches:
       only:
@@ -35,7 +35,7 @@ for:
     deploy:
       provider: Environment
       name: production
-      script:
+      deploy_script:
         - cmd: dotnet run --project deploy/FtpDeployer.csproj ./release
 init:
   # Good practise, because Windows line endings are different from Unix/Linux ones
